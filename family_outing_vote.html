@@ -1568,6 +1568,9 @@ SATURDAYS.forEach(t => {
 let voteCounts = {};
 SATURDAYS.forEach(t => voteCounts[t.date] = 0);
 
+// ─── Place vote tallies (宣告在此，讓 fetchVotes 能正確更新) ────────────────
+let placeCounts = {};
+
 function updateResultsUI() {
   const list = document.getElementById("results-list");
   list.innerHTML = "";
@@ -1619,7 +1622,7 @@ async function fetchVotes() {
     const data = await res.json();
     if (data.counts) { voteCounts = data.counts; updateResultsUI(); }
     if (data.placeCounts) { placeCounts = data.placeCounts; updatePlaceResultsUI(); }
-  } catch(e) { console.log("Could not fetch votes:", e); }
+  } catch(e) { console.error("Could not fetch votes:", e); }
 }
 fetchVotes();
 
@@ -1715,7 +1718,7 @@ const PLACES = [
   "宜農牧場", "員山金車酒廠", "蒔花咖啡 DailyBlossom Cafe & More",
   "良味小廚"
 ];
-let placeCounts = {};
+// placeCounts は上で宣告 (moved to top near voteCounts)
 PLACES.forEach(p => placeCounts[p] = 0);
 
 function togglePlaceCard(cb) {
