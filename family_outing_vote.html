@@ -1120,11 +1120,16 @@
     padding-right: 4px;
   }
   .album-modal-photo {
-    position: relative; aspect-ratio: 1;
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 用 padding-top 撐出 1:1 正方形，相容性比 aspect-ratio 好，避免手機瀏覽器排版跑掉、照片疊在一起 */
     border-radius: 10px; overflow: hidden;
     border: 1px solid rgba(212,175,55,0.2);
   }
-  .album-modal-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .album-modal-photo > a {
+    position: absolute; inset: 0; display: block;
+  }
+  .album-modal-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .album-modal-photo .cover-btn {
     position: absolute; top: 4px; right: 4px;
     width: 26px; height: 26px; border-radius: 50%;
